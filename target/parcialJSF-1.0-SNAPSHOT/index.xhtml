@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <style type="text/css">
+            .errors{
+                color:red;
+                font-size: 18px;
+                font-weight: bold;
+                transition: 1.2s;
+            }
+            .errors:hover{
+                color: black;
+                font-weight: bold;
+                font-size: 20px;
+                transition: 1s;
+            }
+            .labels{
+                color: blue;
+                font-weight: bolder;
+                transition:2s;
+            }.labels:hover{
+                color:red;
+                font-weight: bold;
+                transition:1s;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+            <h:panelGrid columns="3">
+                <h:outputLabel class="labels" for="txtCodigo" value="Código: "/>
+                <h:inputText id="txtCodigo" value="#{clienteManagedBean.cliente.codigo}" />
+                <h:message for="txtCodigo" class="errors" />
+                
+                <h:outputLabel class="labels" for="txtNombre" value="Nombre: "/>
+                <h:inputText id="txtNombre" value="#{clienteManagedBean.cliente.nombre}" />
+                <h:message for="txtNombre" class="errors" />
+               
+                <h:outputLabel class="labels" for="txtNombreComercial" value="Nombre Comercial: "/>
+                <h:inputText id="txtNombreComercial" value="#{clienteManagedBean.cliente.nombreComercial}"/>
+                <h:message for="txtNombreComercial" class="errors" />
+                
+                <h:outputLabel class="labels" for="txtDireccion" value="Dirección: "/>
+                <h:inputText id="txtDireccion" value="#{clienteManagedBean.cliente.direccion}"/>
+                <h:message for="txtDireccion" class="errors" />
+                
+                <h:outputLabel class="labels" for="txtContacto" value="Contacto: "/>
+                <h:inputText id="txtContacto" value="#{clienteManagedBean.cliente.contacto}" />
+                <h:message for="txtContacto" class="errors" />
+                
+                <h:outputLabel class="labels" for="txtCredito" value="Crédito: "/>
+                <h:inputText id="txtCredito" value="#{clienteManagedBean.cliente.credito}"/>
+                <h:message for="txtCredito" class="errors" />
+            </h:panelGrid>
+            <h:commandButton value="Enviar">
+                <f:ajax execute="form" listener="#{clienteManagedBean.addCliente()}"
+                        render="mensajeOutputText messages panelGrid clientes "/>
+            </h:commandButton>
+            <h:dataTable id="clientes" value="#{clienteManagedBean.list}" var="getLista">
+                <h:column>    				
+                   <f:facet name = "header">Código</f:facet>    				
+                   #{getLista.codigo}
+                </h:column>
+                <h:column>    				
+                   <f:facet name = "header">Nombre</f:facet>    				
+                   #{getLista.nombre}
+                </h:column>
+                <h:column>    				
+                   <f:facet name = "header">Nombre Comercial</f:facet>    				
+                   #{getLista.nombreComercial}
+                </h:column>                
+                <h:column>    				
+                   <f:facet name = "header">Dirección</f:facet>    				
+                   #{getLista.direccion}
+                </h:column>
+                <h:column>    				
+                   <f:facet name = "header">Contácto</f:facet>    				
+                   #{getLista.contacto}
+                </h:column>
+                <h:column>
+                    <f:facet name ="header">Crédito Disponible</f:facet>
+                    #{getLista.credito}
+                </h:column>
+            </h:dataTable>
+            
+        </h:form>
+        <h:messages id="messages" class="errors"/>
+    </h:body>
+</html>
+
